@@ -15,13 +15,14 @@ class NewsController extends RestController
     /**
      * 分页本找新闻
      * @param $page 页码
+     * @param $pageSize 每页数量
      */
-    function index($page)
+    function index($page,$pageSize)
     {
         if (empty($page)) {
             $page = 0;
         }
-        jsondata(M('news')->limit($page * 10, 10)->select());
+        jsondata(M('news')->limit($page * $pageSize, $pageSize)->select());
     }
 
     /**
