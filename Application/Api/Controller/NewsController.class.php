@@ -7,14 +7,19 @@
  */
 
 namespace Api\Controller;
-
-
 use Think\Controller\RestController;
 
 class NewsController extends RestController
 {
-    function index()
+    /**
+     * 分页本找新闻
+     * @param $page 页码
+     */
+    function index($page)
     {
-        jsondata(M('news')->select());
+        if (empty($page)) {
+            $page = 0;
+        }
+        jsondata(M('news')->limit($page * 10, 10)->select());
     }
 }
