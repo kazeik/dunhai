@@ -7,6 +7,7 @@
  */
 
 namespace Api\Controller;
+
 use Think\Controller\RestController;
 
 class NewsController extends RestController
@@ -21,5 +22,14 @@ class NewsController extends RestController
             $page = 0;
         }
         jsondata(M('news')->limit($page * 10, 10)->select());
+    }
+
+    /**
+     * 依据id获取新闻详情
+     * @param $id 新闻id
+     */
+    function getNewById($id)
+    {
+        jsondata(M('news')->where("id='" . $id . "'"))->find();
     }
 }
