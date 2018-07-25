@@ -31,35 +31,9 @@
             </div>
         </div>
     </div>
-    <div class="list-group">
-        <foreach name="news" item="newsitem">
-            <a href="{:U('NewsInfo/index'),array('id'=>$actor['id'])}" class="list-group-item">
-                <h4 class="list-group-item-heading">{$newsitem['newstitle']}</h4>
-                <h6 class="list-group-item-text">发布时间:{$newsitem['date']}</h6>
-                <h6 class="list-group-item-text">{$newsitem['newsinfo']}</h6>
-            </a>
-        </foreach>
-    </div>
-    <nav aria-label="Page navigation" class="nav navbar-nav navbar-right" style="margin-right: 30px;">
-        <ul class="pagination">
-            <li>
-                <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-                <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-
+    <h3 style="text-align: center;">{$data['newstitle']}</h3>
+    <h6 style="text-align: center;">发布时间:{$data['date']}</h6>
+    <h5 >{$data['newsinfo']}</h5>
 </div>
 </body>
 </html>

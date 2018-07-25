@@ -1,10 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" class="html">
+
 <head>
-    <meta charset="UTF-8">
-    <title>合作艺人</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <title>敦海文化传播</title>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--<script src="__PUBLIC__/js/jquery.min.js"></script>-->
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
+
 <body>
+
+<div class="container-fluid">
+    <!--首页标题-->
+    <div class="row">
+        <div class="container-fluid">
+            <div class="navbar-header" style="margin: 10px;">
+                <a href="#">
+                    <img class="lazyImg" src="__PUBLIC__/img/logo.png" data-original="__PUBLIC__/img/logo.png"
+                         width="120" height="120"></a></div>
+            <div class="nav navbar-nav navbar-left" id="bs-example-navbar-collapse-6"
+                 style="margin:20px;font-size: 24px;height: 100%">
+                <h2 style="text-align: center">艺人名录</h2><br>
+            </div>
+            <div class="col-md-3 nav navbar-nav navbar-right">
+                <div class="row">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="请输入艺人名称.." id="actorname">
+                        </div>
+                        <button type="submit" class="btn btn-default" id="actor_search" onclick="getActorsByName()">搜索
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--艺人分类-->
+    <div class="row-center" id="actortypes">
+        <foreach name="data['actortypes']" item="type">
+            <button type="button" class="btn btn-primary btn-sm" style='margin-left: 10px;margin-right: 10px;'>
+                {$type['type']}
+            </button>
+        </foreach>
+    </div>
+    <br>
+    <!--艺人表-->
+    <div>
+        <!--九宫格的艺人列表,3*3-->
+        <div class="row" id="actorlist">
+            <foreach name="data['actors']" item="actor">
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a href={:U('ActorInfo/index',array('uid'=>$actor['id']))}>
+                            <img src="__PUBLIC__/img/avatar/{$actor['avatar']}.jpg" alt="..." width="400px"
+                                 height="100px">
+                            <div class="caption">
+                                <h4 class='text-center'>{$actor['actorname']}</h4>
+                                <p class='text-center'>{$actor['type']}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </foreach>
+            <nav aria-label="Page navigation" class="nav navbar-nav navbar-right" style="margin-right: 30px;">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+</div>
 
 </body>
 </html>

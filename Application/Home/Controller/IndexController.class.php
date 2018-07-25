@@ -12,10 +12,12 @@ class IndexController extends Controller
         where dh_actor.id = dh_actortype.id limit 0,6";
         $actors = M('actor')->query($sqlstr);
         $news = M('news')->page(0, 6)->select();
+        $adData = M('ad')->page(0,5)->select();
         $dataArr = array(
             'actors' => $actors,
             'actortypes' => $actortyps,
-            'news' => $news
+            'news' => $news,
+            'ad'=>$adData
         );
         $this->assign('data', $dataArr)->display();
     }
