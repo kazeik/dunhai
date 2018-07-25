@@ -26,6 +26,13 @@ class NewsController extends RestController
     }
 
     /**
+     *
+     */
+    function getAllNews(){
+        jsondata(M('news')->select());
+    }
+
+    /**
      * 依据id获取新闻详情
      * @param $id 新闻id
      */

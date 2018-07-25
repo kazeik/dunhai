@@ -41,24 +41,38 @@ class ActorController extends RestController
     /**
      * 获取所有艺人列表
      */
-    function getActors(){
-        jsondata(M('actor')->select());
+    function getActors()
+    {
+        $sqlstr = "SELECT dh_actor.id, dh_actor.actorname,dh_actor.actorinfo, dh_actor.country, dh_actor.avatar, dh_actortype.type FROM dh_actor, dh_actortype where dh_actor.id = dh_actortype.id";
+        jsondata(M('actor')->query($sqlstr));
+    }
+
+    /**
+     * @param $page 页码
+     * @param $pageSize 每页数量
+     */
+    function getActorsByPage($page,$pageSize){
+        $sqlstr = "SELECT dh_actor.id, dh_actor.actorname,dh_actor.actorinfo, dh_actor.country, dh_actor.avatar, dh_actortype.type FROM dh_actor, dh_actortype
+        where dh_actor.id = dh_actortype.id limit ".($page*$pageSize).",".$pageSize;
+        jsondata(M('actor')->query($sqlstr));
     }
 
     /**
      * 根据艺人所属类型获取艺人
      * @param $typeId 艺人所属类型
      */
-    function getActorByTypeId($typeId){
-        jsondata(M('actor')->where("type='".$typeId."'")->select());
+    function getActorByTypeId($typeId)
+    {
+        jsondata(M('actor')->where("type='" . $typeId . "'")->select());
     }
 
     /**
      * 根据艺人名称模糊查询
      * @param $name 艺人名称
      */
-    function getActorByName($name){
-        $where['actorname'] = array('like','%'.$name.'%');
+    function getActorByName($name)
+    {
+        $where['actorname'] = array('like', '%' . $name . '%');
         jsondata(M('actor')->where($where)->find());
     }
 }

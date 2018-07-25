@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="html">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <title>敦海文化传播</title>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--<script src="__PUBLIC__/js/jquery.min.js"></script>-->
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: "http://localhost/dunhai/index.php/api/news/getAllNews",
+                async: false,
+                success: function (data) {
+                    var jsondata = eval('(' + data + ')');
+                    var temp = '';
+                    for (var index = 0; index < jsondata.data.length; index++) {
+                        var newstitle = jsondata.data[i].newstitle;
+                        var newsinfo = jsondata.data[i].newsinfo;
+                        var newsId = jsondata.data[i].id;
+//                        temp+="<button type=\"button\" class=\"btn btn-primary btn-sm\" style='margin-left: 10px;margin-right: 10px;'>"+name+"</button>"
+                    }
+                    $("#actortypes").html(temp);
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+<div class="container-fluid">
+</div>
+</body>
+</html>
