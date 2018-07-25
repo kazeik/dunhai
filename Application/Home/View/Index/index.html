@@ -36,10 +36,37 @@
                 url:"http://localhost/dunhai/index.php/api/actor/getActors",
                 async:false,
                 success:function (data) {
-                    alert(data)
+//                    alert(data)
                 }
             });
         }
+
+        $(document).ready(function () {
+            $.ajax({
+                type:"get",
+                url:"http://localhost/dunhai/index.php/api/actor/getActorTypes",
+                async:false,
+                success:function (data) {
+                    var jsondata = eval('(' + data + ')');
+                    var temp = '';
+                    for(var index=0;index<jsondata.data.length; index++){
+                        var name = jsondata.data[index].type
+                        temp+="   <button type=\"button\" class=\"btn btn-primary btn-sm\">"+name+"</button>"
+                    }
+                    $("#actortypes").html(temp);
+                }
+            });
+            
+            $.ajax({
+                type:"get",
+                url:"http://localhost/dunhai/index.php/api/actor/getActors",
+                async:false,
+                success:function (data) {
+                    var jsondata = eval('(' + data + ')');
+                    console.log(JSON.stringify(data));
+                }
+            })
+        });
 
     </script>
 </head>
@@ -127,21 +154,12 @@
         </div>
     </div>
     <!--艺人分类-->
-    <div class="row-center">
-        <button type="button" class="btn btn-primary btn-sm">派对DJMC组合</button>
-        <button type="button" class="btn btn-primary btn-sm">抖音及明星</button>
-        <button type="button" class="btn btn-primary btn-sm">肌肉男团</button>
-        <button type="button" class="btn btn-primary btn-sm">外籍特色嘉宾</button>
-        <button type="button" class="btn btn-primary btn-sm">嫩模艳舞</button>
-        <button type="button" class="btn btn-primary btn-sm">湿身女团</button>
-        <button type="button" class="btn btn-primary btn-sm">明星模仿</button>
-        <button type="button" class="btn btn-primary btn-sm">全部分类</button>
-    </div>
+    <div class="row-center" id="actortypes"></div>
     <br>
     <!--艺人表-->
     <div>
         <!--九宫格的艺人列表,3*3-->
-        <div class="row">
+        <div class="row" id="actorlist">
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <a href="#">
