@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>合作艺人</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div>
+        <p class="navbar-text" style="text-align: center;">合作艺人</p>
+        <h3 style="text-align: center;">{$data['info']['actorname']}</h3>
+    </div>
+    <p class="navbar-text" style="text-align: left;">图片展示</p>
+    <div>
+        <foreach name="data['imgs']" item="img">
+            <img class="lazyImg" src="{$img['imgpath']}" data-original=""
+                 width="100%" height="auto">
+        </foreach>
+    </div>
+    <p class="navbar-text" style="text-align: left;">视频展示</p>
+    <div>
+        <foreach name="data['videos']" item="video">
+            <video controls="controls" poster="" onplay="ture" width="100%" height="auto"
+                   onclick="if(/Android/.test(navigator.userAgent))this.play();">
+                <source src="{$video['videopath']}" type="video/mp4">
+            </video>
+        </foreach>
+    </div>
+</div>
+</body>
+</html>

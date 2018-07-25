@@ -14,6 +14,9 @@ use Think\Controller;
 class NewsController extends Controller
 {
     function index(){
+        $data = M('news')->select();
+        $this->assign('news',$data);
+        echo  "111";
         $this->display();
     }
 }

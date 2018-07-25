@@ -10,6 +10,6 @@ use  Think\Controller;
 
 class AboutController extends Controller{
     function index(){
-
+        $this->display();
     }
 }

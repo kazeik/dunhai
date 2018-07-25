@@ -9,9 +9,9 @@
 namespace Api\Controller;
 
 
-use Think\Controller\RestController;
+use Think\Controller;
 
-class ActorController extends RestController
+class ActorController extends Controller
 {
     /**
      * 获取所有分类
@@ -51,7 +51,9 @@ class ActorController extends RestController
      * @param $page 页码
      * @param $pageSize 每页数量
      */
-    function getActorsByPage($page,$pageSize){
+    function getActorsByPage(){
+        $page = I('page');
+        $pageSize = I('pageSize');
         $sqlstr = "SELECT dh_actor.id, dh_actor.actorname,dh_actor.actorinfo, dh_actor.country, dh_actor.avatar, dh_actortype.type FROM dh_actor, dh_actortype
         where dh_actor.id = dh_actortype.id limit ".($page*$pageSize).",".$pageSize;
         jsondata(M('actor')->query($sqlstr));

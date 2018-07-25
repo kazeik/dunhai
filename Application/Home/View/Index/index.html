@@ -29,85 +29,19 @@
         function getActorsByName() {
             var name = document.getElementById("actorname").value;
             $.ajax({
-               type:"get",
-                data:{
-                   name:name
+                type: "get",
+                data: {
+                    name: name
                 },
-                url:"http://localhost/dunhai/index.php/api/actor/getActors",
-                async:false,
-                success:function (data) {
+                url: "http://localhost/dunhai/index.php/api/actor/getActors",
+                async: false,
+                success: function (data) {
 //                    alert(data)
                 }
             });
         }
-
-        $(document).ready(function () {
-            $.ajax({
-                type:"get",
-                url:"http://localhost/dunhai/index.php/api/actor/getActorTypes",
-                async:false,
-                success:function (data) {
-                    var jsondata = eval('(' + data + ')');
-                    var temp = '';
-                    for(var index=0;index<jsondata.data.length; index++){
-                        var name = jsondata.data[index].type
-                        temp+="<button type=\"button\" class=\"btn btn-primary btn-sm\" style='margin-left: 10px;margin-right: 10px;'>"+name+"</button>"
-                    }
-                    $("#actortypes").html(temp);
-                }
-            });
-            
-            $.ajax({
-                type:"post",
-                url:"http://localhost/dunhai/index.php/api/actor/getActorsByPage",
-                data:{
-                    page:0,
-                    pageSize:6
-                },
-                async:false,
-                success:function (data) {
-                    var jsondata = eval('(' + data + ')');
-                    console.log(jsondata);
-                    var temp = '';
-                    for(var i = 0 ; i<jsondata.data.length;i++){
-                        var actorname = jsondata.data[i].actorname;
-                        var actorinfomsg = jsondata.data[i].actorinfo;
-                        var avatar = jsondata.data[i].avatar;
-                        var type = jsondata.data[i].type;
-                        var actorid = jsondata.data[i].id;
-                        temp += "<div class=\"col-sm-6 col-md-4\"><div class=\"thumbnail\"><a href=\"#\"><img src=\"__PUBLIC__/img/avatar/"+avatar+".jpg\" " +
-                                "alt=\"...\" width=\"300px\" height=\"100px\"><div class=\"caption\"><h4 class='text-center'>"+actorname+"</h4>" +
-                                "<p class='text-center'>"+type+"</p></div></a></div></div>";
-                    }
-                    $('#actorlist').html(temp);
-                }
-            })
-
-            $.ajax({
-                type:"post",
-                url:"http://localhost/dunhai/index.php/api/news/index",
-                data:{
-                    page:0,
-                    pageSize:10
-                },
-                async:false,
-                success:function (data) {
-                    var jsondata = eval('(' + data + ')');
-                    console.log(jsondata);
-                    var temp = '';
-                    for(var i = 0 ; i<jsondata.data.length;i++){
-                        var newstitle = jsondata.data[i].newstitle;
-                        var newsId = jsondata.data[i].id;
-                        temp += "<li style='margin-top: 5px;margin-bottom: 5px;'><a href=\"#\">"+newstitle+"</li>";
-                    }
-                    $('#newslist').html(temp);
-                }
-            })
-        });
-
     </script>
 </head>
-
 
 <body>
 
@@ -125,13 +59,12 @@
                              width="60" height="60"></a></div>
                 <div class="nav navbar-nav navbar-left" id="bs-example-navbar-collapse-6">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">首页<span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">合作艺人</a></li>
-                        <li><a href="#">新闻资讯</a></li>
-                        <li><a href="#">关于我们</a></li>
-                        <li><a href="#">联系我们</a></li>
+                        <li class="active"><a href="{:U('Index/index')}">首页<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li><a href="{:U('Actor/index')}">合作艺人</a></li>
+                        <li><a href="{:U('News/index')}">新闻资讯</a></li>
+                        <li><a href="{:U('About/index')}">关于我们</a></li>
                     </ul>
-
                 </div>
             </div>
         </nav>
@@ -159,15 +92,6 @@
                 >
                 <!--<div class="carousel-caption">标题 3</div>-->
             </div>
-            <!--&lt;!&ndash; 轮播（Carousel）导航 &ndash;&gt;-->
-            <!--<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">-->
-            <!--<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>-->
-            <!--<span class="sr-only">Previous</span>-->
-            <!--</a>-->
-            <!--<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">-->
-            <!--<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>-->
-            <!--<span class="sr-only">Next</span>-->
-            <!--</a>-->
         </div>
     </div>
     <!--合作艺人及搜索-->
@@ -185,18 +109,38 @@
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="请输入艺人名称.." id="actorname">
                     </div>
-                    <button type="submit" class="btn btn-default" id="actor_search" onclick="getActorsByName()">搜索</button>
+                    <button type="submit" class="btn btn-default" id="actor_search" onclick="getActorsByName()">搜索
+                    </button>
                 </form>
             </div>
         </div>
     </div>
     <!--艺人分类-->
-    <div class="row-center" id="actortypes"></div>
+    <div class="row-center" id="actortypes">
+        <foreach name="data['actortypes']" item="type">
+            <button type="button" class="btn btn-primary btn-sm" style='margin-left: 10px;margin-right: 10px;'>
+                {$type['type']}
+            </button>
+        </foreach>
+    </div>
     <br>
     <!--艺人表-->
     <div>
         <!--九宫格的艺人列表,3*3-->
         <div class="row" id="actorlist">
+            <foreach name="data['actors']" item="actor">
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a href={:U('ActorInfo/index',array('uid'=>$actor['id']))}>
+                            <img src="__PUBLIC__/img/avatar/{$actor['avatar']}.jpg" alt="..." width="400px" height="100px">
+                            <div class="caption">
+                                <h4 class='text-center'>{$actor['actorname']}</h4>
+                                <p class='text-center'>{$actor['type']}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </foreach>
             <!--更多 居中显示-->
             <div class="row">
                 <div class="col-md-6">
@@ -213,9 +157,12 @@
             <div class="col-md-6">
                 <h2>新闻资讯</h2><br>
                 <ul id="newslist">
+                    <foreach name="data['news']" item="new">
+                        <li style='margin-top: 5px;margin-bottom: 5px;'><a href="#">{$new['newstitle']}</a></li>
+                    </foreach>
                 </ul>
                 <div class="navbar-form navbar-right">
-                    <button type="submit" class="btn btn-default btn-xs" onclick="">more</button>
+                    <button type="submit" class="btn btn-default btn-xs"><a href="{:U('News/index')}">more</a></button>
                 </div>
             </div>
             <div class="col-md-6">
@@ -226,7 +173,7 @@
                 敦海公司由经纪人丁永丰先生与陈子祺女士联合发起。与全国...
                 <br>
                 <div class="navbar-form navbar-right">
-                    <button type="submit" class="btn btn-default btn-xs">more</button>
+                    <button type="submit" class="btn btn-default btn-xs"><a href="{:U('About/index')}">more</a></button>
                 </div>
             </div>
         </div>
