@@ -52,13 +52,13 @@
                 <div class="navbar-header" style="margin: 10px;">
                     <a href="#">
                         <img class="lazyImg" src="__PUBLIC__/img/logo.png" data-original="__PUBLIC__/img/logo.png"
-                             width="120" height="120"></a></div>
+                             width="120" height="120" style="margin-left: 25px;"></a></div>
                 <div class="nav navbar-nav navbar-right" id="bs-example-navbar-collapse-6" style="margin:20px;font-size: 24px;height: 100%">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="{:U('Index/index')}">首页<span class="sr-only" style="background-size: 160px">(current)</span></a></li>
-                        <li><a href="{:U('Actor/index')}">合作艺人</a></li>
-                        <li><a href="{:U('News/index')}">新闻资讯</a></li>
-                        <li><a href="{:U('About/index')}">关于我们</a></li>
+                    <ul class="nav navbar-nav" style="height: 100px">
+                        <li class="active" style="padding: 15px"><a href="{:U('Index/index')}">首页<span class="sr-only" style="background-size: 160px">(current)</span></a></li>
+                        <li style="padding: 15px"><a href="{:U('Actor/index')}">艺人名录</a></li>
+                        <li style="padding: 15px"><a href="{:U('News/index')}">新闻资讯</a></li>
+                        <li style="padding: 15px"><a href="{:U('About/index')}">关于我们</a></li>
                     </ul>
                 </div>
             </div>
@@ -75,15 +75,15 @@
         <div class="carousel-inner">
             <div class="item active" style="height:400px;">
                 <img src="http://040.youawangluo.com/news/UploadFile/image/20180627/20180627113843624362.jpeg" alt="Second slide" width="100%">
-                <!--<div class="carousel-caption">标题 2</div>-->
+                <div class="carousel-caption" style="color: red">韩国DJ-Monster</div>
             </div>
             <div class="item" style="height:400px;">
                 <img src="http://040.youawangluo.com/news/UploadFile/image/20180507/20180507235973267326.jpeg" alt="Second slide" width="100%">
-                <!--<div class="carousel-caption">标题 2</div>-->
+                <div class="carousel-caption" style="color: red">广东三美人</div>
             </div>
             <div class="item" style="height:400px;">
                 <img src="http://040.youawangluo.com/news/UploadFile/image/20180403/20180403001900077.jpg" alt="Third slide" width="100%">
-                <!--<div class="carousel-caption">标题 3</div>-->
+                <div class="carousel-caption" style="color: red">光头女子组合Lucky Fox</div>
             </div>
             <!--</foreach>-->
         </div>
@@ -93,21 +93,21 @@
         <!--合作艺人 居左-->
         <div class="col-md-9 ">
             <div class=".navbar-left">
-                <h2>艺人名录</h2>
+                <h2>艺人名录</h2><br>
             </div>
         </div>
         <!--搜索带按钮,居右-->
-        <div class="col-md-3 .navbar-right">
-            <div class="row">
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="请输入艺人名称.." id="actorname">
-                    </div>
-                    <button type="submit" class="btn btn-default" id="actor_search" onclick="getActorsByName()">搜索
-                    </button>
-                </form>
-            </div>
-        </div>
+        <!--<div class="col-md-3 .navbar-right">-->
+            <!--<div class="row">-->
+                <!--<form class="navbar-form navbar-left" role="search">-->
+                    <!--<div class="form-group">-->
+                        <!--<input type="text" class="form-control" placeholder="请输入艺人名称.." id="actorname">-->
+                    <!--</div>-->
+                    <!--<button type="submit" class="btn btn-default" id="actor_search" onclick="getActorsByName()">搜索-->
+                    <!--</button>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
     <!--艺人分类-->
     <div class="row-center" id="actortypes">
