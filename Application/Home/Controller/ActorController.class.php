@@ -58,5 +58,15 @@ class ActorController extends Controller
     function getActorsByName()
     {
         $name = I('name');
+//        $condtion['actorname'] = array('like', '%' . trim($name) . '%');
+        $dbstr = "select dh_actor.actorname,dh_actor.avatar, dh_actortype.type from dh_actor ,dh_actortype where dh_actor.actorname like '%" . trim($name) . "%' and dh_actor.typeid=dh_actortype.id";
+        $actors = M('actor')->query($dbstr);
+        $len = count($actors);
+        $numArr = round($len / 12);
+        $dataArr = array(
+            'actors' => $actors,
+            'pagenum' => $numArr
+        );
+        $this->ajaxReturn($dataArr, "json");
     }
 }

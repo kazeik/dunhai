@@ -17,7 +17,24 @@
     <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script type="text/javascript">
+        function reflashdata(typeid) {
+            $.post("{:U('Actor/getActorByType')}", {'id': typeid}, function (data) {
+                parserdata(data)
+            });
+        }
+
+        function getActorsByName(name) {
+            if(name.length==0){
+                alert("名字不能为空")
+                return;
+            }
+            $.post("{:U('Actor/getActorsByName')}", {'name': name}, function (data) {
+                parserdata(data)
+            });
+        }
+
         function parserdata(data) {
+//            {"actors":[{"id":"28","typeid":"2","actorname":"\u66fe\u60dc-\u8bb2\u771f\u7684","actorinfo":null,"country":null,"avatar":"28"}],"pagenum":0}
             var temphtml = '';
             var actors = data['actors'];
             var pagenum = data['pagenum'];
@@ -37,18 +54,10 @@
             for (var i = 0; i < pagenum; i++) {
                 var pageindex = i + 1;
                 temppagehtml += "<li><a href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>" +
-                        "<li><a href=\"{:U('Actor/index',array('page'=>" + pageindex + ",'pagesize'=>10))}\">i</a></li><li><a href=\"#\" aria-label=\"Next\">" +
+                        "<li><a href=\"{:U('Actor/index',array('page'=>" + pageindex + ",'pagesize'=>10))}\">"+pageindex+"</a></li><li><a href=\"#\" aria-label=\"Next\">" +
                         "<span aria-hidden=\"true\">&raquo;</span></a></li>";
             }
             $('#pageination').html(temppagehtml);
-        }
-
-        function reflashdata(typeid) {
-            $.post("{:U('Actor/getActorByType')}", {'id': typeid}, parserdata(data));
-        }
-
-        function getActorsByName(name) {
-            $.post("{:U('Actor/getActorByType')}", {'name': name}, parserdata(data));
         }
 
     </script>
@@ -70,13 +79,11 @@
             </div>
             <div class="col-md-3 nav navbar-nav navbar-right">
                 <div class="row">
-                    <form class="navbar-form navbar-left" role="search">
+                    <form class="navbar-form navbar-left" role="search" onsubmit="getActorsByName($('#actorname').val());return false">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="请输入艺人名称.." id="actorname">
                         </div>
-                        <button type="submit" class="btn btn-default" id="actor_search"
-                                onclick="getActorsByName($('#actorname').val())">搜索
-                        </button>
+                        <button type="submit" class="btn btn-default" id="actor_search">搜索</button>
                     </form>
                 </div>
             </div>
