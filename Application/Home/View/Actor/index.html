@@ -25,7 +25,7 @@
     <div class="row">
         <div class="container-fluid">
             <div class="navbar-header" style="margin: 10px;">
-                <a href="#">
+                <a href="{:U('Index/index')}">
                     <img class="lazyImg" src="__PUBLIC__/img/logo.png" data-original="__PUBLIC__/img/logo.png"
                          width="120" height="120" style="margin-left: 25px;"></a></div>
             <div class="nav navbar-nav navbar-left" id="bs-example-navbar-collapse-6"
@@ -50,7 +50,7 @@
     <!--艺人分类-->
     <div class="row-center" id="actortypes">
         <foreach name="data['actortypes']" item="type">
-            <button type="button" class="btn btn-primary btn-sm" style='margin-left: 10px;margin-right: 10px;'>
+            <button type="button" class="btn btn-primary btn-sm" style='margin: 10px;'>
                 {$type['type']}
             </button>
         </foreach>
@@ -74,27 +74,25 @@
                     </div>
                 </div>
             </foreach>
-            <nav aria-label="Page navigation" class="nav navbar-nav navbar-right" style="margin-right: 30px;">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
         </div>
+    </div>
+    <nav aria-label="Page navigation" class="nav navbar-nav navbar-right" style="margin-right: 30px;">
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <foreach name="data['pagenum']" item="page">
+                <li><a href="{:U('Actor/index',array('page'=>$page,'pagesize'=>10))}">{$page}</a></li>
+            </foreach>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
-
 </body>
 </html>
