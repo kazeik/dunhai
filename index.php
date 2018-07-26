@@ -20,7 +20,7 @@ define('BUILD_CONTROLLER_LIST','Api','Home','Admin');
 //define('BIND_MODULE','Home');
 
 // 开启调试模式 建议开发阶段开启 部署阶段注释或者设为false
-define('APP_DEBUG',True);
+define('APP_DEBUG',False);
 define('COMMON_PATH','./Common/');
 // 定义运行时目录
 define('RUNTIME_PATH','./Runtime/');

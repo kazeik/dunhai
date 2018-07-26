@@ -16,6 +16,42 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript">
+        function parserdata(data) {
+            var temphtml = '';
+            var actors = data['actors'];
+            var pagenum = data['pagenum'];
+            for (var i = 0; i < actors.length; i++) {
+                var item = actors[i];
+                var id = item['id'];
+                var avatar = item['avatar'];
+                var type = item['type'];
+                var actorname = item['actorname'];
+                temphtml += "<div class=\"col-sm-6 col-md-4\"><div class=\"thumbnail\"><a href={:U('ActorInfo/index',array('uid'=>id))}>" +
+                        "<img src=\"__PUBLIC__/img/avatar/" + avatar + ".jpg\" width=\"400px\" height=\"100px\"><div class=\"caption\">" +
+                        "<h4 class='text-center'>" + actorname + "</h4><p class='text-center'>" + type + "</p></div></a></div></div>";
+            }
+            $('#actorlist').html(temphtml);
+
+            var temppagehtml = '';
+            for (var i = 0; i < pagenum; i++) {
+                var pageindex = i + 1;
+                temppagehtml += "<li><a href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>" +
+                        "<li><a href=\"{:U('Actor/index',array('page'=>" + pageindex + ",'pagesize'=>10))}\">i</a></li><li><a href=\"#\" aria-label=\"Next\">" +
+                        "<span aria-hidden=\"true\">&raquo;</span></a></li>";
+            }
+            $('#pageination').html(temppagehtml);
+        }
+
+        function reflashdata(typeid) {
+            $.post("{:U('Actor/getActorByType')}", {'id': typeid}, parserdata(data));
+        }
+
+        function getActorsByName(name) {
+            $.post("{:U('Actor/getActorByType')}", {'name': name}, parserdata(data));
+        }
+
+    </script>
 </head>
 
 <body>
@@ -38,7 +74,8 @@
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="请输入艺人名称.." id="actorname">
                         </div>
-                        <button type="submit" class="btn btn-default" id="actor_search" onclick="getActorsByName()">搜索
+                        <button type="submit" class="btn btn-default" id="actor_search"
+                                onclick="getActorsByName($('#actorname').val())">搜索
                         </button>
                     </form>
                 </div>
@@ -50,8 +87,8 @@
     <!--艺人分类-->
     <div class="row-center" id="actortypes">
         <foreach name="data['actortypes']" item="type">
-            <button type="button" class="btn btn-primary btn-sm" style='margin: 10px;'>
-                {$type['type']}
+            <button type="button" class="btn btn-primary btn-sm" style='margin: 10px;'
+                    onclick="reflashdata({$type['id']})">{$type['type']}
             </button>
         </foreach>
     </div>
@@ -77,14 +114,16 @@
         </div>
     </div>
     <nav aria-label="Page navigation" class="nav navbar-nav navbar-right" style="margin-right: 30px;">
-        <ul class="pagination">
+        <ul class="pagination" id="pageination">
             <li>
                 <a href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <foreach name="data['pagenum']" item="page">
-                <li><a href="{:U('Actor/index',array('page'=>$page,'pagesize'=>10))}">{$page}</a></li>
+                <li>
+                    <a href="{:U('Actor/index',array('page'=>$page,'pagesize'=>10))}">{$page}</a>
+                </li>
             </foreach>
             <li>
                 <a href="#" aria-label="Next">
